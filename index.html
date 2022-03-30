@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport"
-        content="width=width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <title>love</title>
     <style>
         * {
@@ -21,16 +21,19 @@
             width: 500px;
             height: 880px;
             margin: 40px auto;
-            background: url(images/2.jpg) center top;
-            background-size: 500px;
             position: relative;
+            opacity: 0.7;
         }
 
         #box .box {
-            width: 400px;
+            box-sizing: border-box;
+            width: 100%;
+            height: 100%;
+            padding: 0 50px;
+            background: url(images/2.jpg) center top;
+            background-size: 500px;
             margin: 0 auto;
             overflow: hidden;
-
         }
 
         #box h1 {
@@ -85,14 +88,14 @@
             margin: 20px 0;
             font-size: 1.14em;
             font-weight: 200;
-            color: rgb(87, 84, 84);
+            color: black;
             font-weight: 200;
         }
 
         #box li {
             list-style: none;
             margin: 20px 0;
-            color: rgb(87, 84, 84);
+            color: black;
             font-weight: 200;
             font-size: 1.1em;
             display: none;
@@ -190,7 +193,7 @@
             line-height: 40px;
             text-align: center;
             font-size: 40px;
-            color: rgb(134, 123, 123);
+            color: black;
             background-color: #fff;
             position: absolute;
             top: 10px;
@@ -199,10 +202,10 @@
 
         #box .upperBox {
             box-sizing: border-box;
-            width: 500px;
-            height: 880px;
+            width: 474px;
+            height: 790px;
             margin: 0 auto;
-            background: url(images/2.jpg) center top;
+            background: url(images/3.jpg) center top;
             background-size: 500px;
             position: absolute;
             top: 0;
@@ -289,6 +292,7 @@
 
     <script>
         init_viewport();   //判断客户端输入
+        var box = document.querySelector('.box');
         var btnYes = document.querySelector('.btnYes');
         var btnNo = document.querySelector('.btnNo');
         var btnYes = document.querySelector('.btnYes');
@@ -394,7 +398,8 @@
             var word = upPWord.innerText;
             upPWord.innerHTML = '';
             upperBox.style.display = 'block';
-
+            upperBox.style.opacity = '0.7';
+            box.style.display = 'none';
             var t4 = setInterval(() => {
                 upPWord.innerHTML = word.substring(0, index++) + '<span style="color: red;">❤</span>';
                 wordNum++;
@@ -409,7 +414,7 @@
                     clearInterval(t4);
                     wordSpan.innerHTML = '❤更多...'
                 }
-            }, 400);
+            }, 200);
             // window.open('心.html');
         }
 
