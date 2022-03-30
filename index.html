@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport"
+        content="width=width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <title>love</title>
     <style>
         * {
@@ -18,8 +19,8 @@
 
         #box {
             width: 500px;
-            height: 900px;
-            margin: 0 auto;
+            height: 880px;
+            margin: 40px auto;
             background: url(images/2.jpg) center top;
             background-size: 500px;
             position: relative;
@@ -199,7 +200,7 @@
         #box .upperBox {
             box-sizing: border-box;
             width: 500px;
-            height: 900px;
+            height: 880px;
             margin: 0 auto;
             background: url(images/2.jpg) center top;
             background-size: 500px;
@@ -278,7 +279,7 @@
 
         <div class="upperBox">
             <p class="word">
-                遇见你是我所有美好故事的开始，所以，请别放开我的手，也别缺席我的将来，因为一辈子和你在一起才叫将来。<br>&nbsp;&nbsp;其实我也不知道什么是爱，只是遇到你之后整个世界都是甜的，因为喜欢你，所以做出了好多幼稚的动作，说出来很幼稚的话，我想你牵着我的手，走遍大街小巷，看到关于你的一切，都会在心里低估一句，你是我的
+                遇见你是我所有美好故事的开始，所以，请别放开我的手，也别缺席我的将来，因为一辈子和你在一起才叫将来。&nbsp;&nbsp;其实我也不知道什么是爱，只是遇到你之后整个世界都是甜的，因为喜欢你，所以做出了好多幼稚的动作，说出来很幼稚的话，我想你牵着我的手，走遍大街小巷，看到关于你的一切，都会在心里低估一句，你是我的
                 对于你呀就是心尖尖上的喜欢和爱，别人靠近你你一点就哭鼻子的那种，我对你好，也可以对别人好，但是有些东西我只想给你，我舍不得把你给别人，我喜欢你呢，很爱你呢，希望你满眼都是我，希望我是你拒绝别人的理由，偷偷告诉你，我离不开你。
             </p>
 
@@ -287,6 +288,7 @@
     </div>
 
     <script>
+        init_viewport();   //判断客户端输入
         var btnYes = document.querySelector('.btnYes');
         var btnNo = document.querySelector('.btnNo');
         var btnYes = document.querySelector('.btnYes');
@@ -533,8 +535,130 @@
         onResize();
         window.addEventListener("resize", onResize);
         requestAnimationFrame(render);
- //-----------------------------背景动态 爱心-----------------------------
+        //-----------------------------背景动态 爱心-----------------------------
 
+        //-----------------------------移动端适配-----------------------------
+        //判断客户端设备，选择写入meta
+        function init_viewport() {
+            if (navigator.userAgent.indexOf('Android') != -1) {
+                var version = parseFloat(RegExp.$1);
+                if (version > 2.3) {
+                    var width = window.outerWidth == 0 ? window.screen.width : window.outerWidth;
+                    var phoneScale = parseInt(width) / 500;
+                    document.write('<meta name="viewport" content="width=500, minimum-scale = ' + phoneScale + ', maximum-scale = ' + phoneScale + ', target-densitydpi=device-dpi">');
+                } else {
+                    document.write('<meta name="viewport" content="width=500, target-densitydpi=device-dpi, user-scalable=0">');
+                }
+            } else if (navigator.userAgent.indexOf('iPhone') != -1) {
+                var phoneScale = parseInt(window.screen.width) / 500;
+                document.write('<meta name="viewport" content="width=500, min-height=750, initial-scale=' + phoneScale + ', maximum-scale=' + phoneScale + ', user-scalable=0" /> '); //0.75   0.82
+            } else {
+                document.write('<meta name="viewport" content="width=500, height=750, initial-scale=0.64" /> '); //0.75  0.82
+            }
+        }
+
+        // (function (doc, win) {
+        //     var docEl = win.document.documentElement;
+        //     var resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize';
+        //     var metaEl = doc.querySelector('meta[name="viewport"]');
+        //     var dpr = 0;
+        //     var scale = 0;
+
+        //     // 对iOS设备进行dpr的判断，对于Android系列，始终认为其dpr为1
+        //     if (!dpr && !scale) {
+        //         var isAndroid = win.navigator.appVersion.match(/android/gi);
+        //         var isIPhone = win.navigator.appVersion.match(/[iphone|ipad]/gi);
+        //         var devicePixelRatio = win.devicePixelRatio;
+
+        //         if (isIPhone) {
+        //             dpr = devicePixelRatio;
+        //         } else {
+        //             drp = 1;
+        //         }
+
+        //         scale = 1 / dpr;
+        //     }
+
+        //     /**
+        //       * ================================================
+        //       *   设置data-dpr和viewport
+        //       × ================================================
+        //       */
+
+        //     docEl.setAttribute('data-dpr', dpr);
+        //     // 动态改写meta:viewport标签
+        //     if (!metaEl) {
+        //         metaEl = doc.createElement('meta');
+        //         metaEl.setAttribute('name', 'viewport');
+        //         metaEl.setAttribute('content', 'width=device-width, initial-scale=' + scale + ', maximum-scale=' + scale + ', minimum-scale=' + scale + ', user-scalable=no');
+        //         document.documentElement.firstElementChild.appendChild(metaEl);
+        //     } else {
+        //         metaEl.setAttribute('content', 'width=device-width, initial-scale=' + scale + ', maximum-scale=' + scale + ', minimum-scale=' + scale + ', user-scalable=no');
+        //     }
+
+        // })(document, window);
+
+        // // 适配dpr的字体大小
+        // //         @mixin font - dpr($font - size){
+        // //             font - size: $font - size;
+
+        // //             [data - dpr="2"] & {
+        // //                 font- size: $font - size * 2;
+        // //         }
+
+        // //         [data - dpr="3"] & {
+        // //             font- size: $font - size * 3;
+        // //   }
+        // // }
+        // //         @mixin px - dpr($property, $px) {
+        // //   #{ $property }: $px;
+
+        // //             [data - dpr="2"] & {
+        // //     #{ $property }: $px * 2;
+        // //             }
+
+        // //             [data - dpr="3"] & {
+        // //     #{ $property }: $px * 3;
+        // //             }
+        // //         }
+
+        // //         // 使用
+        // //         @include font - dpr(14px);
+        // //         @include px - dpr(width, 40px); @include px - dpr(height, 40px); 
+        // /**
+        //   * 以下这段代码是用于根据移动端设备的屏幕分辨率计算出合适的根元素的大小
+        //   * 当设备宽度为375(iPhone6)时，根元素font-size=16px; 依次增大；
+        //   * 限制当为设备宽度大于768(iPad)之后，font-size不再继续增大
+        //   * scale 为meta viewport中的缩放大小
+        //   */
+        // (function (doc, win) {
+        //     var docEl = win.document.documentElement;
+        //     var resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize';
+        //     /**
+        //       * ================================================
+        //       *   设置根元素font-size
+        //       * 当设备宽度为375(iPhone6)时，根元素font-size=16px; 
+        //       × ================================================
+        //       */
+        //     var refreshRem = function () {
+        //         var clientWidth = win.innerWidth
+        //             || doc.documentElement.clientWidth
+        //             || doc.body.clientWidth;
+
+        //         console.log(clientWidth)
+        //         if (!clientWidth) return;
+        //         var fz;
+        //         var width = clientWidth;
+        //         fz = 16 * width / 375;
+        //         docEl.style.fontSize = fz + 'px';
+        //     };
+
+        //     if (!doc.addEventListener) return;
+        //     win.addEventListener(resizeEvt, refreshRem, false);
+        //     doc.addEventListener('DOMContentLoaded', refreshRem, false);
+        //     refreshRem();
+
+        // })(document, window);
     </script>
 </body>
 
