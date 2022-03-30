@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>love</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-size: 1em;
+            letter-spacing: 1px;
+        }
+
+
+
+        #box {
+            width: 500px;
+            height: 900px;
+            margin: 0 auto;
+            background: url(images/2.jpg) center top;
+            background-size: 500px;
+            position: relative;
+        }
+
+        #box .box {
+            width: 400px;
+            margin: 0 auto;
+            overflow: hidden;
+
+        }
+
+        #box h1 {
+            margin: 60px 0 30px 0;
+            font-size: 1.8em;
+            letter-spacing: 2px;
+        }
+
+        #box h1 em {
+            font-style: normal;
+            margin-left: 2px;
+        }
+
+        #box .img {
+            width: 400px;
+            height: 225px;
+            border-radius: 5px;
+            background: url(images/1.gif) no-repeat;
+            background-size: cover;
+        }
+
+        #box .box .song {
+            width: 44px;
+            height: 44px;
+            background: url(images/music_note_big.png) no-repeat;
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            z-index: 6;
+            cursor: pointer;
+            opacity: .7;
+        }
+
+        #box .box .song .music {
+            opacity: 0;
+
+        }
+
+        #box .musicP {
+            width: 80px;
+            font-size: 4px;
+            text-align: center;
+            color: #fff;
+            font-weight: normal;
+            position: absolute;
+            top: 54px;
+            right: 4px;
+            display: none;
+        }
+
+        #box p {
+            margin: 20px 0;
+            font-size: 1.14em;
+            font-weight: 200;
+            color: rgb(87, 84, 84);
+            font-weight: 200;
+        }
+
+        #box li {
+            list-style: none;
+            margin: 20px 0;
+            color: rgb(87, 84, 84);
+            font-weight: 200;
+            font-size: 1.1em;
+            display: none;
+        }
+
+        #box .btn {
+            width: 320px;
+            height: 120px;
+            margin: 50px auto;
+            position: relative;
+        }
+
+
+        #box .btnYes,
+        #box .btnNo {
+            display: inline-block;
+            width: 100px;
+            text-align: center;
+            height: 50px;
+            line-height: 50px;
+            border-radius: 5px;
+            background-color: rgba(0, 0, 0, .3);
+            color: #fff;
+            font-size: 1.4em;
+            cursor: pointer;
+        }
+
+
+
+        #box .btnNo {
+            margin-left: 90px;
+
+        }
+
+        #box .BiXin {
+            box-sizing: border-box;
+            width: 360px;
+            height: 180px;
+            background-color: rgba(255, 255, 255);
+            border-radius: 5px;
+            padding: 20px 0;
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            display: none;
+
+        }
+
+        #box .BiXin img {
+            display: block;
+            width: 180px;
+            height: 98px;
+            margin: auto;
+        }
+
+        #box .BiXin p {
+            width: 180px;
+            font-size: 22px;
+            font-weight: normal;
+            padding-left: 15px;
+            margin: auto;
+        }
+
+        #box .KeLian {
+            box-sizing: border-box;
+            width: 360px;
+            height: 180px;
+            background-color: #fff;
+            border-radius: 5px;
+            padding: 30px 0;
+            position: absolute;
+            top: -40px;
+            left: -20px;
+            display: none;
+        }
+
+        #box .KeLian img {
+            display: block;
+            width: 180px;
+            height: 98px;
+            margin: auto;
+        }
+
+        #box .KeLian p {
+            width: 180px;
+            font-size: 24px;
+            font-weight: normal;
+            padding-left: 15px;
+            margin: 10px auto;
+        }
+
+        #box .KeLian .close {
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            font-size: 40px;
+            color: rgb(134, 123, 123);
+            background-color: #fff;
+            position: absolute;
+            top: 10px;
+            right: 15px;
+        }
+
+        #box .upperBox {
+            box-sizing: border-box;
+            width: 500px;
+            height: 900px;
+            margin: 0 auto;
+            background: url(images/2.jpg) center top;
+            background-size: 500px;
+            position: absolute;
+            top: 0;
+            z-index: 5;
+            padding: 0 20px;
+            display: none;
+        }
+
+        #box .upperBox .word,
+        #box .upperBox .wordSpan {
+            float: left;
+            font-size: 18px;
+        }
+
+        #box .upperBox .wordSpan {
+            margin: 20px 0 0 0;
+            color: red;
+            font-size: 16px;
+        }
+
+        /* 画布 */
+        #box1 {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -99;
+
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box1">
+        <canvas></canvas>
+    </div>
+    <div id="box">
+        <div class="box">
+            <div class="song">
+                <!-- loop="loop" -->
+                <audio autoplay="autoplay" loop="loop" class="music">
+                    <source src="1.ogg" type="audio/ogg" />
+                    <source src="images/1.mp3" type="audio/mpeg" />
+                    您的浏览器不支持audio标签
+                </audio>
+            </div>
+            <p class="musicP">正在播放....</p>
+            <h1>做我女朋友好不好<em>💕</em>
+
+            </h1>
+            <div class="img"></div>
+            <p>承蒙你的出现，够我喜欢好多年，我希望，以后你能用我的名字拒绝所有人💕</p>
+            <ul>
+                <li class="message message1">你是我拔掉氧气罐都想吻的人</li>
+                <li class="message message2">你是我跑完8000米还想拥抱的人</li>
+                <li class="message message3">你是我自罚三杯都不肯开口的秘密</li>
+                <li class="message message4">你是我赴汤蹈火都不肯放下的执着</li>
+                <li class="message message5">你是我电量只剩1%也想回信息的人</li>
+                <li class="message message6">你是我穷极一生不想醒来的梦</li>
+            </ul>
+            <div class="btn">
+                <div onclick="oy_go_next()" class="btnYes">Yes&nbsp;&nbsp;❤</div>
+                <div onclick="oy_show_benefit()" class="btnNo">No&nbsp;&nbsp;✖</div>
+                <div class="KeLian">
+                    <img src="images/emoji_kelian.png" alt="">
+                    <p>请告诉我YES！</p>
+                    <div class="close">✖</div>
+                </div>
+                <div class="BiXin">
+                    <img src="images/emoji_bixin.jpg" alt="">
+                    <p>有老婆咯！！</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="upperBox">
+            <p class="word">
+                遇见你是我所有美好故事的开始，所以，请别放开我的手，也别缺席我的将来，因为一辈子和你在一起才叫将来。<br>&nbsp;&nbsp;其实我也不知道什么是爱，只是遇到你之后整个世界都是甜的，因为喜欢你，所以做出了好多幼稚的动作，说出来很幼稚的话，我想你牵着我的手，走遍大街小巷，看到关于你的一切，都会在心里低估一句，你是我的
+                对于你呀就是心尖尖上的喜欢和爱，别人靠近你你一点就哭鼻子的那种，我对你好，也可以对别人好，但是有些东西我只想给你，我舍不得把你给别人，我喜欢你呢，很爱你呢，希望你满眼都是我，希望我是你拒绝别人的理由，偷偷告诉你，我离不开你。
+            </p>
+
+            <span class="wordSpan">❤</span>
+        </div>
+    </div>
+
+    <script>
+        var btnYes = document.querySelector('.btnYes');
+        var btnNo = document.querySelector('.btnNo');
+        var btnYes = document.querySelector('.btnYes');
+        var message = document.querySelectorAll('.message');
+        var keLian = document.querySelector('.KeLian');
+        var biXin = document.querySelector('.BiXin');
+        var song = document.querySelector('.song');
+        var music = document.querySelector('.music');
+        var musicP = document.querySelector('.musicP');
+        var upperBox = document.querySelector('.upperBox');
+        var wordSpan = document.querySelector('.wordSpan');
+        var upPWord = document.querySelector('.word');
+        var wordNum = 0;
+        var i = 0;
+        var s = 1;
+        var s1 = 0;
+        var index = 0;
+        var tfYes = 0;
+        var yesColor = 190;
+        var yesMouse = true;
+        //------------------------------按钮 YES 和 NO 的设置------------------------------
+
+        //按钮的 移入和移出
+        btnNo.onmouseover = function () {
+            btnNo.innerHTML = '✖';
+            btnNo.style.color = 'red';
+            btnNo.style.backgroundColor = 'rgba(255, 255, 255, .5)';
+        }
+        btnNo.onmouseout = function () {
+            btnNo.innerHTML = 'No&nbsp;&nbsp;✖'
+            btnNo.style.color = '#fff';
+            btnNo.style.backgroundColor = 'rgba(0, 0, 0, .3)';
+        }
+
+        btnYes.onmouseover = function () {
+            if (yesMouse == true) {
+                btnYes.style.backgroundColor = 'rgba(255, 255, 255, .5)';
+                btnYes.innerHTML = '❤'
+                btnYes.style.color = 'red';
+            }
+
+        }
+        btnYes.onmouseout = function () {
+            if (yesMouse == true) {
+                btnYes.innerHTML = 'Yes&nbsp;&nbsp;❤'
+                btnYes.style.color = '#fff';
+                btnYes.style.backgroundColor = 'rgba(0, 0, 0, .3)';
+            }
+
+        }
+
+        //点击 no的时候 一句一句的显示
+        btnNo.onclick = function () {
+            if (i < 6) {
+                message[i].style.display = 'block';
+                i++;
+            }
+            else {
+                keLian.style.display = 'block';
+            }
+
+        }
+        //点击yes 弹出图片
+        btnYes.onclick = function () {
+            yesMouse = false;
+            music.play();
+            //bug  当多次点击时会出现 文字显示过快的效果
+            //解决办法 当第一次点击后 禁用 鼠标点击
+            btnYes.style.pointerEvents = 'none';
+            var t2 = setInterval(() => {
+                btnYes.style.margin = '0 ' + tfYes + 'px';
+                btnYes.style.color = 'rgb(255, ' + yesColor + ', ' + yesColor + ')';
+                btnYes.style.backgroundColor = ' transparent';
+                btnYes.style.width = '200px';
+                btnYes.innerHTML = '余生请多指教❤';
+                yesColor -= 38;  //完成文字 从浅红到深红
+                btnNo.style.display = 'none'; //关闭 no 按钮
+                if (tfYes < 140) {
+                    tfYes += 28;
+                } else {
+                    s1 = i;
+                    //----------------------t3----------------------
+                    var t3 = setInterval(() => {
+                        if (s1 < 6) {
+                            message[s1].style.display = 'block';
+                        } else {
+                            biXin.style.display = 'block';
+                            setTimeout("upperBlock()", 3000);
+                            clearInterval(t3);
+                        }
+                        s1++;
+                    }, 800);
+                    //----------------------t3----------------------
+                    clearInterval(t2);
+                }
+            }, 500);
+
+        }
+
+        //跳转时 播放音乐并显示 下一页
+
+        function upperBlock() {
+            var word = upPWord.innerText;
+            upPWord.innerHTML = '';
+            upperBox.style.display = 'block';
+
+            var t4 = setInterval(() => {
+                upPWord.innerHTML = word.substring(0, index++) + '<span style="color: red;">❤</span>';
+                wordNum++;
+                if (wordSpan.style.opacity == '0') {
+
+                    wordSpan.style.opacity = '1';
+                } else {
+                    wordSpan.style.opacity = '0';
+                }
+
+                if (word.length < wordNum) {
+                    clearInterval(t4);
+                    wordSpan.innerHTML = '❤更多...'
+                }
+            }, 400);
+            // window.open('心.html');
+        }
+
+        //当可怜的表情 被单击时 隐藏
+        keLian.onclick = function () {
+            keLian.style.display = 'none';
+        }
+        //------------------------------按钮 YES 和 NO 的设置------------------------------
+
+
+
+
+        //-----------------------------音乐的播放和图标的旋转-----------------------------
+        //实现 播放音乐的旋转
+        function songTransform() {
+            song.style.transform = 'rotate(' + s * 5 + 'deg)';
+            if (s >= 72) {
+                s = 1;
+            }
+            s++;
+        }
+
+        //实现 旋转动态效果
+        var t1 = setInterval(() => {
+            songTransform();
+        }, 20);
+
+        //实现暂定和播放效果
+        song.onclick = function () {
+            getMusicPlay();
+        }
+
+        //音频.paused 如果是暂停状态则 true
+        function getMusicPlay() {
+            if (music.paused) {
+                clearInterval(t1);  //因为 音乐在刚开始时 是为未播放 状态 ，所以第一次点击时 会为它再次附上一个定时器 
+                t1 = setInterval(() => {
+                    songTransform();
+                }, 20);
+                music.play();
+                musicP.style.display = 'block';
+            } else {
+                music.pause();
+                musicP.style.display = 'none';
+                clearInterval(t1);
+            }
+        }
+        //-----------------------------音乐的播放和图标的旋转-----------------------------
+
+        //-----------------------------背景动态 爱心-----------------------------
+
+        var canvas = document.querySelector("canvas"),
+            ctx = canvas.getContext("2d");
+        var ww, wh;
+        function onResize() {
+            ww = canvas.width = window.innerWidth;
+            wh = canvas.height = window.innerHeight;
+        }
+        ctx.strokeStyle = "red";
+        ctx.shadowBlur = 25;
+        ctx.shadowColor = "hsla(0, 100%, 60%,0.5)";
+
+        var precision = 100;
+        var hearts = [];
+
+
+        var Heart = function (x, y) {
+            this.x = x || Math.random() * ww;
+            this.y = y || Math.random() * wh;
+            this.size = Math.random() * 2 + 1;
+            this.shadowBlur = Math.random() * 10;
+            this.speedX = (Math.random() + 0.2 - 0.6) * 8;
+            this.speedY = (Math.random() + 0.2 - 0.6) * 8;
+            this.speedSize = Math.random() * 0.05 + 0.01;
+            this.opacity = 1;
+            this.vertices = [];
+            for (var i = 0; i < precision; i++) {
+                var step = (i / precision - 0.5) * (Math.PI * 2);
+                var vector = {
+                    x: (15 * Math.pow(Math.sin(step), 3)),
+                    y: -(13 * Math.cos(step) - 5 * Math.cos(2 * step) - 2 * Math.cos(3 * step) - Math.cos(4 * step))
+                }
+                this.vertices.push(vector);
+            }
+        }
+
+        Heart.prototype.draw = function () {
+            this.size -= this.speedSize;
+            this.x += this.speedX;
+            this.y += this.speedY;
+            ctx.save();
+            ctx.translate(-1000, this.y);
+            ctx.scale(this.size, this.size);
+            ctx.beginPath();
+            for (var i = 0; i < precision; i++) {
+                var vector = this.vertices[i];
+                ctx.lineTo(vector.x, vector.y);
+            }
+            ctx.globalAlpha = this.size;
+            ctx.shadowBlur = Math.round((3 - this.size) * 10);
+            ctx.shadowColor = "hsla(0, 100%, 60%,0.5)";
+            ctx.shadowOffsetX = this.x + 1000;
+            ctx.globalCompositeOperation = "screen"
+            ctx.closePath();
+            ctx.fill()
+            ctx.restore();
+        };
+
+
+        function render(a) {
+            requestAnimationFrame(render);
+
+            hearts.push(new Heart())
+            ctx.clearRect(0, 0, ww, wh);
+            for (var i = 0; i < hearts.length; i++) {
+                hearts[i].draw();
+                if (hearts[i].size <= 0) {
+                    hearts.splice(i, 1);
+                    i--;
+                }
+            }
+        }
+        onResize();
+        window.addEventListener("resize", onResize);
+        requestAnimationFrame(render);
+ //-----------------------------背景动态 爱心-----------------------------
+
+    </script>
+</body>
+
+</html>
